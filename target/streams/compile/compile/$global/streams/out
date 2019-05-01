@@ -1,0 +1,7 @@
+[0m[[0m[33mwarn[0m] [0m[0mC:\Users\12676\Documents\Proj2\code\src\main\scala\Main.scala:612:20: object JSON in package json is deprecated: This object will be removed.[0m
+[0m[[0m[33mwarn[0m] [0m[0m		val jsonResult = JSON.parseFull(line)[0m
+[0m[[0m[33mwarn[0m] [0m[0m		                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mC:\Users\12676\Documents\Proj2\code\src\main\scala\Main.scala:881:20: object JSON in package json is deprecated: This object will be removed.[0m
+[0m[[0m[33mwarn[0m] [0m[0m		val jsonResult = JSON.parseFull(line)[0m
+[0m[[0m[33mwarn[0m] [0m[0m		                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m

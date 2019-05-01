@@ -1,0 +1,30 @@
+a person on a horse jump over a break down airplane . 
+a person be train he horse for a competition . 
+neutral
+a person on a horse jump over a break down airplane . 
+a person be at a diner , order a omelette . 
+contradiction
+a person on a horse jump over a break down airplane . 
+a person be outdoors , on a horse . 
+entailment
+child smile and wave at camera 
+they be smile at they parent 
+neutral
+child smile and wave at camera 
+there be child present 
+entailment
+child smile and wave at camera 
+the kid be frown 
+contradiction
+a boy be jump on skateboard in the middle of a red bridge . 
+the boy skate down the sidewalk . 
+contradiction
+a boy be jump on skateboard in the middle of a red bridge . 
+the boy do a skateboarding trick . 
+entailment
+a boy be jump on skateboard in the middle of a red bridge . 
+the boy be wear safety equipment . 
+neutral
+a older man sit with he orange juice at a small table in a coffee shop while employee in bright color shirt smile in the background . 
+a older man drink he juice as he wait for he daughter to get off work . 
+neutral

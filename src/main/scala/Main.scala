@@ -97,15 +97,16 @@ object NaiveBayes {
    		args.foreach(println)
    	// 1 for MY primary method : All Words Unigram of premise and Bigram of hypothesis 
    	// 3 for Grad part - using syntactic Dependencies
-   		println("Please wait! Downloading files from dropbox!")
-   		fileDownloader("https://www.dropbox.com/s/rrfrb2w0qstun8o/probMapWordDepParse2.txt?dl=1" , "probMapWordDep.txt")
-   		println("Finished downloading files!\n Beware that syntactic Dependencies parsing may take upto 20 mins")
+   		
    		if( args(0) == "withAllWords")
 	   	{
 	   		evaluateOnTestSet(1)
 	   	} 
 	   	else if( args(0) == "withOnlyDependencies")
 	   	{
+	   		println("Please wait! Downloading files from dropbox!")
+   			fileDownloader("https://www.dropbox.com/s/rrfrb2w0qstun8o/probMapWordDepParse2.txt?dl=1" , "probMapWordDep.txt")
+   			println("Finished downloading files!\n Beware that syntactic Dependencies parsing may take upto 20 mins")
 	   		evaluateOnTestSet(3)
 	   	}
 	   	else if( args(0) == "withLemmas")

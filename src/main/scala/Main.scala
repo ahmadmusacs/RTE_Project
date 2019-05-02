@@ -35,6 +35,15 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 // import org.scalanlp.chalk.lang.eng
+import edu.stanford.nlp.semgraph.SemanticGraph
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.{BasicDependenciesAnnotation, EnhancedDependenciesAnnotation, EnhancedPlusPlusDependenciesAnnotation}
+import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation
+import edu.stanford.nlp.util.CoreMap
+import edu.stanford.nlp.trees.Tree
+import sys.process._
+import java.net.URL
+import java.io.File
+
 
 class NaiveBayes {
 
@@ -64,7 +73,7 @@ object NaiveBayes {
 	var ProbabilityMapinEntailment : scala.collection.mutable.Map[ String, Double ] = scala.collection.mutable.Map()
 	var ProbabilityMapinContradiction : scala.collection.mutable.Map[ String, Double ] = scala.collection.mutable.Map()
 
-
+	var dependencyG = new SemanticGraph()
 
 	var ProbabilityMapinSpam : scala.collection.mutable.Map[ String, Double ] = scala.collection.mutable.Map()
 	var ProbabilityMapinNonSpam : scala.collection.mutable.Map[ String, Double ] = scala.collection.mutable.Map()
@@ -79,19 +88,63 @@ object NaiveBayes {
 	var numberofTokensinNonspam : Double = 0.0
 
 	var stopwords = Array[String]()
+	def fileDownloader(url: String, filename: String) = {
+    new URL(url) #> new File(filename) !!
+	}
+
 
    def main(args:Array[String]) : Unit = {
-   		evaluateUnaryLemmatization(true)
+   		args.foreach(println)
+   	// 1 for MY primary method : All Words Unigram of premise and Bigram of hypothesis 
+   	// 3 for Grad part - using syntactic Dependencies
+   		println("Please wait! Downloading files from dropbox!")
+   		fileDownloader("https://www.dropbox.com/s/rrfrb2w0qstun8o/probMapWordDepParse2.txt?dl=1" , "probMapWordDep.txt")
+   		println("Finished downloading files!\n Beware that syntactic Dependencies parsing may take upto 20 mins")
+   		if( args(0) == "withAllWords")
+	   	{
+	   		evaluateOnTestSet(1)
+	   	} 
+	   	else if( args(0) == "withOnlyDependencies")
+	   	{
+	   		evaluateOnTestSet(3)
+	   	}
+	   	else if( args(0) == "withLemmas")
+	   	{
+	   		evaluateOnTestSet(0)
+	   	}
+	   	else 
+	   	{
+	   		println("Incorrect argument passing. Please follow the report guidelines!")
+	   	}
+
+   		// if( args(0) == "onlyWords")
+   		// {
+   		// 	evaluateUnaryLemmatization(0)
+   		// }
+   		// else if( args(0) == "onlyWords")
+   		// {
+   		// 	evaluateUnaryLemmatization(1)
+   		// }
+   		// else if ( args(0) == "OnlyDependencies")
+   		// {
+   		// 	evaluateUnaryLemmatization(2)
+   		// }
    		// println("completed")
    		// trainMultinomial("dataset")
 
    }
 
-    def process(sentence: String) : List[String] = {
+    def process(sentence: String, isDependencies : Boolean) : List[String] = {
     // val proc = new FastNLPProcessor()
     val props: Properties = new Properties()
-    props.put("annotators", "tokenize, ssplit, pos, lemma")
-
+    if (isDependencies)
+	{   
+		props.put("annotators", "tokenize, ssplit, pos, lemma, parse")
+	}
+	else
+	{
+		props.put("annotators", "tokenize, ssplit, pos, lemma")
+	}
     val pipeline: StanfordCoreNLP = new StanfordCoreNLP(props)
     // read the whole text from a file; concatenate all sentences into one String
     // val doc = proc.annotate(Source.fromFile(fileToProcess).getLines().mkString("\n"))
@@ -107,6 +160,9 @@ object NaiveBayes {
       val sentences: List[CoreMap] = document.get(classOf[SentencesAnnotation]).asScala.toList
       var lemmaList : List[String] = List[String]()
 
+
+	if(isDependencies == false)
+	{
       (for {
         sentence: CoreMap <- sentences
         token: CoreLabel <- sentence.get(classOf[TokensAnnotation]).asScala.toList
@@ -122,7 +178,35 @@ object NaiveBayes {
       // {
       //   println(w)
       // }
+
       return lemmaList
+  	}
+  	else
+  	{
+		var depParse  = ""
+      var parsedDep = (for {
+        sentence: CoreMap <- sentences
+        // token: CoreLabel <- sentence.get(classOf[TokensAnnotation]).asScala.toList
+        // word: String = token.get(classOf[TextAnnotation])
+        // pos: String = token.get(classOf[PartOfSpeechAnnotation])
+        // lemma: String = token.get(classOf[LemmaAnnotation])
+        enhancedDependencyParse: SemanticGraph = sentence.get(classOf[BasicDependenciesAnnotation])
+        //println("token :" + t._1 + " |||  lemma : " + t._2
+      } yield (enhancedDependencyParse)) 
+      // println(depParse)
+      // println("")
+      // println("Size of lemma" + lemmaList.size)
+      // for (w <- lemmaList)
+      // {
+      //   println(w)
+      // }
+      depParse = parsedDep(0).toList
+      var listDepParse = depParse.split("\n").toList
+      // println(listDepParse.length)
+      // listDepParse.foreach(println)
+      return listDepParse
+
+  	}
   }
 
   def generateBigram(senetence  : String) : String= {
@@ -417,7 +501,7 @@ object NaiveBayes {
 			*/
 
 		
-			var concatenatedSentence = (premise) +  " " + generateBigram(hypothesis)
+			var concatenatedSentence = (premise) +  " " + (hypothesis)
 			// println(concatenatedSentence)
 			 // var bigramPremise = ""
 			 // var premiseWords = premise.split(" ")
@@ -477,7 +561,7 @@ object NaiveBayes {
 	println(vocab.length)
 	ProbMapCalculation(vocab)
 	// return()
-	evaluate()
+	// evaluate()
 
 	// vocab.foreach(println)
 
@@ -548,14 +632,25 @@ object NaiveBayes {
     * @return A Score object containing all relevant counts and scores
     */
 
-  def evaluateUnaryLemmatization(isBigram : Boolean) = {
+  def evaluateOnTestSet(expType : Int) = {
 
+  	var falseCount = 0
+  	var writer = new PrintWriter("incorrectAnalysis.txt")
 
   	var source = Source.fromFile("probMapLemmatizationUnary.txt")
-  	if( isBigram == true)
+  	if( expType == 1)
   	{
   		source = Source.fromFile("probMapWordBigram.txt")
   	}
+  	else if( expType == 2)
+  	{
+  		source = Source.fromFile("probMapWordUnary.txt")
+  	}
+  	else if( expType == 3)
+  	{
+  		source = Source.fromFile("probMapWordDep.txt")
+  	}
+
   	for (line <- source.getLines)
   	{
   		var strings = line.split("\t")
@@ -641,7 +736,7 @@ object NaiveBayes {
 		}
 
 		*/
-		var lemmas = process(sentence1.trim() + " " + sentence2.trim())
+		var lemmas = process(sentence1.trim() + " " + sentence2.trim(), false)
 		var neutralScore : Double = Math.log(0.3326810674831215)
         var entailmentScore : Double = Math.log(0.33386788795104183)
         var contradictionScore : Double = Math.log(0.3334510445658367)
@@ -651,12 +746,9 @@ object NaiveBayes {
         numberofTokensinNeutral = 4227658.0
         numberofTokensinEntailment = 3940101.0
         numberofTokensinContradiction = 4073027.0
-		if( isBigram == true){
+		if( expType == 1){
 		
 		    lemmas = ((sentence1) + " " + generateBigram(sentence2)).split(" ").toList
-			neutralScore  = Math.log(0.3326810674831215)
-		    entailmentScore  = Math.log(0.33386788795104183)
-		    contradictionScore  = Math.log(0.3334510445658367)
 		    TCcountMapInNeutralSize  = 50175
 		    TCcountMapInEntailmentSize  = 41034
 		    TCcountMapInContradictionSize  = 47481
@@ -664,7 +756,28 @@ object NaiveBayes {
 		    numberofTokensinEntailment = 4423155.0
 		    numberofTokensinContradiction = 4686235.0
     	}
-
+    	else if( expType == 2)
+    	{
+    		lemmas = ((sentence1) + " " + (sentence2)).split(" ").toList
+		    TCcountMapInNeutralSize  = 50180
+		    TCcountMapInEntailmentSize  = 41041
+		    TCcountMapInContradictionSize  = 47489
+		    numberofTokensinNeutral = 3858118.0
+		    numberofTokensinEntailment = 3573348.0
+		    numberofTokensinContradiction = 3703288.0
+    	}
+    	else if(expType == 3)
+    	{
+    		// (,,)
+// (2639237.0,2633815.0,2637679.0)
+			lemmas = process((sentence1) + " " + (sentence2), true)
+			TCcountMapInNeutralSize  = 960539
+		    TCcountMapInEntailmentSize  = 948244
+		    TCcountMapInContradictionSize  = 956949
+		    numberofTokensinNeutral = 2639237.0
+		    numberofTokensinEntailment = 2633815.0
+		    numberofTokensinContradiction = 2637679.0
+    	}
 		for ( word <- lemmas)
 		{
 			
@@ -700,7 +813,11 @@ object NaiveBayes {
 			}
 			else 
 			{
-
+				falseCount += 1
+				if( falseCount < 40)
+				{
+					writer.write(sentence1 + " " +  sentence2 + " " + actualLabel+ " " +  predictedLabel + "\n")
+				}
 				incorrect += 1
 				neutralIncorrect += 1
 			}
@@ -715,6 +832,11 @@ object NaiveBayes {
 			}
 			else 
 			{
+				falseCount += 1
+				if( falseCount < 40)
+				{
+					writer.write(sentence1 + " " +  sentence2 + " " +  actualLabel + " " +  predictedLabel + "\n")
+				}
 				incorrect += 1
 				entailmentIncorrect += 1
 			}
@@ -729,6 +851,11 @@ object NaiveBayes {
 			}
 			else 
 			{
+				falseCount += 1
+				if( falseCount < 40)
+				{
+					writer.write(sentence1 + " " +  sentence2 + " " +  actualLabel + " " +  predictedLabel+ "\n")
+				}
 				incorrect += 1
 				contradictionIncorrect += 1
 			}
@@ -799,6 +926,8 @@ object NaiveBayes {
 		// lemmas2.foreach(println)
 		
 	}
+
+	writer.close()
 	
 	
 	println(correct, incorrect)
@@ -824,14 +953,16 @@ object NaiveBayes {
 	println("Neutral Scores")
 
 	var (p1,r1) = F1_Score(tpNeutral, tnNeutral, fpNeutral, fnNeutral)
-	println("Entailment Scores")
+	println("----------------------------------\nEntailment Scores")
 	var (p2,r2) = F1_Score(tpEntailment, tnEntailment, fpEntailment, fnEntailment)
-	println("contradiction Scores")
+	println("----------------------------------\ncontradiction Scores")
 	var (p3,r3) = F1_Score(tpContradiction, tnContradiction, fpContradiction, fnContradiction)
-	println("Macro F1")
+	println("----------------------------------\nMacro F-1")
 	var pOverall : Double = (p1+p2+p3)/3
 	var rOverall : Double = (r1+r2+r3)/3
-	println(2*(pOverall*rOverall) / (pOverall + rOverall))
+	println("Macro Precision : "+ pOverall)
+	println("Macro Recall : " + rOverall)
+	println("F-1 : " + 2*(pOverall*rOverall) / (pOverall + rOverall))
   }
 
   def evaluate(): Unit = {

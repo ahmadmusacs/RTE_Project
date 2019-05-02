@@ -1,0 +1,39 @@
+This church choir sings to the masses as they sing joyous songs from the book at a church. The church is filled with song. 1.0 0.0
+This church choir sings to the masses as they sing joyous songs from the book at a church. A choir singing at a baseball game. 2.0 0.0
+A woman with a green headscarf, blue shirt and a very big grin. The woman is young. 0.0 1.0
+A woman with a green headscarf, blue shirt and a very big grin. The woman is very happy. 1.0 0.0
+A woman with a green headscarf, blue shirt and a very big grin. The woman has been shot. 2.0 0.0
+An old man with a package poses in front of an advertisement. A man walks by an ad. 2.0 1.0
+A statue at a museum that no seems to be looking at. There is a statue that not many people seem to be interested in. 1.0 2.0
+A land rover is being driven across a river. A Land Rover is splashing water as it crosses a river. 1.0 2.0
+A land rover is being driven across a river. A vehicle is crossing a river. 1.0 2.0
+A blond-haired doctor and her African american assistant looking threw new medical manuals. A doctor is looking at a book 1.0 0.0
+One tan girl with a wool hat is running and leaning over an object, while another person in a wool hat is sitting on the ground. A boy runs into a wall 2.0 1.0
+One tan girl with a wool hat is running and leaning over an object, while another person in a wool hat is sitting on the ground. A man watches his daughter leap 0.0 1.0
+A young family enjoys feeling ocean waves lap at their feet. A family is out at a restaurant. 2.0 0.0
+A young family enjoys feeling ocean waves lap at their feet. A family is at the beach. 1.0 0.0
+A couple walk hand in hand down a street. A couple is sitting on a bench. 2.0 1.0
+3 young man in hoods standing in the middle of a quiet street facing the camera. Three hood wearing people pose for a picture. 1.0 2.0
+3 young man in hoods standing in the middle of a quiet street facing the camera. Three hood wearing people stand in a street. 1.0 2.0
+A man reads the paper in a bar with green lighting. The man is inside. 1.0 2.0
+A man reads the paper in a bar with green lighting. The man is reading the sportspage. 0.0 2.0
+Three firefighter come out of subway station. Three firefighters putting out a fire inside of a subway station. 0.0 2.0
+Three firefighter come out of subway station. Three firefighters coming up from a subway station. 1.0 0.0
+A person wearing a straw hat, standing outside working a steel apparatus with a pile of coconuts on the ground. A person is selling coconuts. 0.0 1.0
+A person wearing a straw hat, standing outside working a steel apparatus with a pile of coconuts on the ground. A person is burning a straw hat. 2.0 1.0
+Male in a blue jacket decides to lay in the grass. The guy wearing a blue jacket is laying on the green grass 1.0 2.0
+Male in a blue jacket decides to lay in the grass. The guy wearing a blue jacket is laying on the green grass taking a nap. 0.0 2.0
+During calf roping a cowboy calls off his horse. A man ropes a calf successfully. 2.0 0.0
+A woman wearing a ball cap squats down to touch the cracked earth. A woman wearing a sun bonnet planting a garden. 2.0 1.0
+Two children re laying on a rug with some wooden bricks laid out in a square between them. Two children are building a brick furnace. 0.0 2.0
+The two young girls are dressed as fairies, and are playing in the leaves outdoors. Two girls play dress up indoors. 2.0 1.0
+The two young girls are dressed as fairies, and are playing in the leaves outdoors. The two girls play in the Autumn. 0.0 1.0
+People jump over a mountain crevasse on a rope. People slide over a mountain crevasse on a slide. 2.0 1.0
+A snowboarder on a wide plain of snow A snow field with a snowboarder on it 1.0 2.0
+A snowboarder on a wide plain of snow A snowboarder gliding over a field of snow 0.0 2.0
+A snowboarder on a wide plain of snow A snowmobile in a blizzard 0.0 2.0
+An older women tending to a garden. The lady has a garden 1.0 0.0
+A man in a black shirt is looking at a bike in a workshop. A man is wearing a red shirt 2.0 1.0
+A man looking over a bicycle's rear wheel in the maintenance garage with various tools visible in the background. A man waits outside a garage. 2.0 1.0
+Three people sit on a bench at a station, the man looks oddly at the two women, the redheaded women looks up and forward in an awkward position, and the yellow blond girl twiddles with her hair. People wait at a station. 1.0 2.0
+A child wearing a red top is standing behind a blond headed child sitting in a wheelbarrow. A child wearing a red top is standing on top of a blond headed child 2.0 1.0

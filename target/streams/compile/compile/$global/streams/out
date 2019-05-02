@@ -1,7 +1,15 @@
-[0m[[0m[33mwarn[0m] [0m[0mC:\Users\12676\Documents\RTE_Project\src\main\scala\Main.scala:612:20: object JSON in package json is deprecated: This object will be removed.[0m
+[0m[[0m[33mwarn[0m] [0m[0mC:\Users\12676\Documents\Text Retrieval\RTE_Project\src\main\scala\Main.scala:92:40: postfix operator !! should be enabled[0m
+[0m[[0m[33mwarn[0m] [0m[0mby making the implicit value scala.language.postfixOps visible.[0m
+[0m[[0m[33mwarn[0m] [0m[0mThis can be achieved by adding the import clause 'import scala.language.postfixOps'[0m
+[0m[[0m[33mwarn[0m] [0m[0mor by setting the compiler option -language:postfixOps.[0m
+[0m[[0m[33mwarn[0m] [0m[0mSee the Scala docs for value scala.language.postfixOps for a discussion[0m
+[0m[[0m[33mwarn[0m] [0m[0mwhy the feature should be explicitly enabled.[0m
+[0m[[0m[33mwarn[0m] [0m[0m    new URL(url) #> new File(filename) !![0m
+[0m[[0m[33mwarn[0m] [0m[0m                                       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mC:\Users\12676\Documents\Text Retrieval\RTE_Project\src\main\scala\Main.scala:707:20: object JSON in package json is deprecated: This object will be removed.[0m
 [0m[[0m[33mwarn[0m] [0m[0m		val jsonResult = JSON.parseFull(line)[0m
 [0m[[0m[33mwarn[0m] [0m[0m		                 ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mC:\Users\12676\Documents\RTE_Project\src\main\scala\Main.scala:881:20: object JSON in package json is deprecated: This object will be removed.[0m
+[0m[[0m[33mwarn[0m] [0m[0mC:\Users\12676\Documents\Text Retrieval\RTE_Project\src\main\scala\Main.scala:1012:20: object JSON in package json is deprecated: This object will be removed.[0m
 [0m[[0m[33mwarn[0m] [0m[0m		val jsonResult = JSON.parseFull(line)[0m
 [0m[[0m[33mwarn[0m] [0m[0m		                 ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
+[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m
